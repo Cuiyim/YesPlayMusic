@@ -174,7 +174,6 @@ class Background {
         ["win32", "linux"].includes(process.platform) &&
         this.store.get("settings.minimizeToTray")
       ) {
-        this.tray = createTray(this.window);
         this.window.hide();
       }
     });
@@ -206,6 +205,11 @@ class Background {
 
       // create menu
       createMenu(this.window);
+
+      // create tray
+      if (["win32", "linux"].includes(process.platform)) {
+        this.tray = createTray(this.window);
+      }
 
       // create dock menu for macOS
       app.dock.setMenu(createDockMenu(this.window));
